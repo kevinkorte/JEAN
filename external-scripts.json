@@ -11,5 +11,6 @@
   "hubot-shipit",
   "hubot-heroku-keepalive",
   "hubot-tell",
-  "hubot-thank-you"
+  "hubot-thank-you",
+  "hubot-welcome"
 ]
