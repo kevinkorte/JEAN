@@ -12,5 +12,6 @@
   "hubot-heroku-keepalive",
   "hubot-tell",
   "hubot-thank-you",
-  "hubot-welcome"
+  "hubot-welcome",
+  "hubot-outofcontext"
 ]
