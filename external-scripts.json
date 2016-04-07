@@ -13,5 +13,6 @@
   "hubot-tell",
   "hubot-thank-you",
   "hubot-welcome",
-  "hubot-outofcontext"
+  "hubot-outofcontext",
+  "hubot-has-no-idea"
 ]
