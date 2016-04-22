@@ -15,6 +15,5 @@
   "hubot-welcome",
   "hubot-outofcontext",
   "hubot-has-no-idea",
-  "hubot-cron",
-  "remember.coffee"
+  "hubot-cron"
 ]
