@@ -3,6 +3,7 @@ module.exports = (robot) ->
   robot.respond /(kevin)( me)? (.+)/i, (msg) ->
     imageMe msg, msg.match[3], (url) ->
       msg.send url
+    msg.send msg.match[3]
 
   robot.respond /animate( me)? (.+)/i, (msg) ->
     imageMe msg, msg.match[2], true, (url) ->
