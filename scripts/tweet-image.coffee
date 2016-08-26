@@ -4,7 +4,7 @@ module.exports = (robot) ->
       imageMe msg, msg.match[3], (url) ->
           msg.send url
 
-imageMe = (msg, query)
+imageMe = (msg, query) ->
     googleCseId = process.env.HUBOT_GOOGLE_CSE_ID
     if googleCseId
         # Using Google Custom Search API
