@@ -148,7 +148,7 @@ tweetMe = (msg, tweet, url) ->
         status: tweet
         media_ids: [ mediaIdStr ]
       twit.post 'statuses/update', params, (err, data, response) ->
-        console.log data
+        msg.send tweet
         return
     return
   return
