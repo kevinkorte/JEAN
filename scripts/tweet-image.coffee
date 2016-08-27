@@ -129,6 +129,7 @@ ensureImageExtension = (url) ->
     "#{url}#.png"
     
 tweetMe = (msg, tweet, url) ->
+  msg.send tweet
   return if !tweet
   tweetObj = status: tweet
   twit = getTwit()
@@ -148,7 +149,6 @@ tweetMe = (msg, tweet, url) ->
         status: tweet
         media_ids: [ mediaIdStr ]
       twit.post 'statuses/update', params, (err, data, response) ->
-        msg.send tweet
         return
     return
   return
