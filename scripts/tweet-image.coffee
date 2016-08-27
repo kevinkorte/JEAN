@@ -1,9 +1,10 @@
 Twit = require "twit"
+
 config =
-consumer_key: process.env.HUBOT_TWITTER_CONSUMER_KEY
-consumer_secret: process.env.HUBOT_TWITTER_CONSUMER_SECRET
-access_token: process.env.HUBOT_TWITTER_ACCESS_TOKEN
-access_token_secret: process.env.HUBOT_TWITTER_ACCESS_TOKEN_SECRET
+  consumer_key: process.env.HUBOT_TWITTER_CONSUMER_KEY
+  consumer_secret: process.env.HUBOT_TWITTER_CONSUMER_SECRET
+  access_token: process.env.HUBOT_TWITTER_ACCESS_TOKEN
+  access_token_secret: process.env.HUBOT_TWITTER_ACCESS_TOKEN_SECRET
 
 twit = undefined
 
@@ -17,7 +18,9 @@ module.exports = (robot) ->
   robot.respond /(kevin)( me)? (.+)/i, (msg) ->
     imageMe msg, msg.match[3], (url) ->
       msg.send url
-      tweetMe msg, msg.match[3], url, () ->
+      
+  robot.respond /tweet\s*(.+)?/i, (msg) ->
+    doTweet(msg, msg.match[1])
 
   robot.respond /animate( me)? (.+)/i, (msg) ->
     imageMe msg, msg.match[2], true, (url) ->
@@ -128,17 +131,15 @@ ensureImageExtension = (url) ->
   else
     "#{url}#.png"
     
-tweetMe = (msg, tweet, url) ->
+doTweet = (msg, tweet) ->
   return if !tweet
   tweetObj = status: tweet
   twit = getTwit()
   twit.post 'statuses/update', tweetObj, (err, reply) ->
     if err
-      msg.send err
+      msg.send "Error sending tweet!"
     else
-      username = reply?.user?screen_name
+      username = reply?.user?.screen_name
       id = reply.id_str
       if (username && id)
         msg.send "https://www.twitter.com/#{username}/status/#{id}"
-  
-  
