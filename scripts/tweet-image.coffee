@@ -134,7 +134,7 @@ tweetMe = (msg, tweet, url) ->
   twit = getTwit()
   twit.post 'statuses/update', tweetObj, (err, reply) ->
     if err
-      msg.send "Error sending tweet!"
+      msg.send err
     else
       username = reply?.user?screen_name
       id = reply.id_str
