@@ -1,3 +1,17 @@
+Twit = require "twit"
+config =
+consumer_key: process.env.HUBOT_TWITTER_CONSUMER_KEY
+consumer_secret: process.env.HUBOT_TWITTER_CONSUMER_SECRET
+access_token: process.env.HUBOT_TWITTER_ACCESS_TOKEN
+access_token_secret: process.env.HUBOT_TWITTER_ACCESS_TOKEN_SECRET
+
+twit = undefined
+
+getTwit = ->
+  unless twit
+    twit = new Twit config
+  return twit
+
 module.exports = (robot) ->
 
   robot.respond /(kevin)( me)? (.+)/i, (msg) ->
@@ -36,9 +50,6 @@ module.exports = (robot) ->
       imageMe msg, imagery, false, true, (url) ->
         encodedUrl = encodeURIComponent url
         msg.send "#{mustachify}#{encodedUrl}"
-
-tweetMe = (msg, query, url) ->
-  msg.send query
 
 imageMe = (msg, query, animated, faces, cb) ->
   cb = animated if typeof animated == 'function'
@@ -116,3 +127,30 @@ ensureImageExtension = (url) ->
     url
   else
     "#{url}#.png"
+    
+tweetMe = (msg, tweet, url) ->
+  return if !tweet
+  tweetObj = status: tweet
+  twit = getTwit()
+  b64content = fs.readFileSync( url, encoding: 'base64')
+  twit.post 'media/upload', { media_data: b64content }, (err, data, response) ->
+  # now we can assign alt text to the media, for use by screen readers and
+  # other text-based presentations and interpreters
+  mediaIdStr = data.media_id_string
+  altText = tweet
+  meta_params = 
+    media_id: mediaIdStr
+    alt_text: text: altText
+  twit.post 'media/metadata/create', meta_params, (err, data, response) ->
+    if !err
+      # now we can reference the media and post a tweet (media will attach to the tweet)
+      params = 
+        status: tweet
+        media_ids: [ mediaIdStr ]
+      twit.post 'statuses/update', params, (err, data, response) ->
+        console.log data
+        return
+    return
+  return
+  
+  
