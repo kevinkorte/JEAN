@@ -3,7 +3,8 @@ module.exports = (robot) ->
   robot.respond /(kevin)( me)? (.+)/i, (msg) ->
     imageMe msg, msg.match[3], (url) ->
       msg.send url
-      msg.send msg.match[3]
+      tweetMe msg, msg.match[3], (string) ->
+        msg.send string
 
   robot.respond /animate( me)? (.+)/i, (msg) ->
     imageMe msg, msg.match[2], true, (url) ->
@@ -38,7 +39,7 @@ module.exports = (robot) ->
         msg.send "#{mustachify}#{encodedUrl}"
 
 tweetMe = (msg, string) ->
-  return string
+  string
 
 
 imageMe = (msg, query, animated, faces, cb) ->
