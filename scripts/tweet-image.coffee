@@ -129,28 +129,16 @@ ensureImageExtension = (url) ->
     "#{url}#.png"
     
 tweetMe = (msg, tweet, url) ->
-  msg.send tweet
   return if !tweet
   tweetObj = status: tweet
   twit = getTwit()
-  b64content = fs.readFileSync( url, encoding: 'base64')
-  twit.post 'media/upload', { media_data: b64content }, (err, data, response) ->
-  # now we can assign alt text to the media, for use by screen readers and
-  # other text-based presentations and interpreters
-  mediaIdStr = data.media_id_string
-  altText = tweet
-  meta_params = 
-    media_id: mediaIdStr
-    alt_text: text: altText
-  twit.post 'media/metadata/create', meta_params, (err, data, response) ->
-    if !err
-      # now we can reference the media and post a tweet (media will attach to the tweet)
-      params = 
-        status: tweet
-        media_ids: [ mediaIdStr ]
-      twit.post 'statuses/update', params, (err, data, response) ->
-        return
-    return
-  return
+  twit.post 'statuses/update', tweetObj, (err, reply) ->
+    if err
+      msg.send "Error sending tweet!"
+    else
+      username = reply?.user?screen_name
+      id = reply.id_str
+      if (username && id)
+        msg.send "https://www.twitter.com/#{username}/status/#{id}"
   
   
