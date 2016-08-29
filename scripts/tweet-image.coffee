@@ -146,15 +146,3 @@ doTweet = (msg, tweet) ->
       id = reply.id_str
       if (username && id)
         msg.send "https://www.twitter.com/#{username}/status/#{id}"
-
-taylor_img = require 'taylor.json'
-taylor = [
-  'i (love|like) swift',
-  'taylor swift',
-  '(writing|coding) swift',
-  'swift project',
-  '(to|only) swift',
-  'into swift',
-  'swift channel'
-]
-taylor_regex = new RegExp taylor.join('|'), 'ig'
