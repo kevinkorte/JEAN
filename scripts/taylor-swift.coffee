@@ -4,7 +4,7 @@ module.exports = (robot) ->
 
 taylor_images = require 'taylor.json'
 
-taylor_img = require 'taylor.json'
+taylor_img = require './taylor.json'
 
 taylor = [
   'i (love|like) swift',
