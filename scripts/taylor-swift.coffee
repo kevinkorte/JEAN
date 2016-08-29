@@ -4,7 +4,19 @@ module.exports = (robot) ->
 
 taylor_images = require 'taylor.json'
 
-taylor_img = require '/app/scripts/taylor.json'
+taylor_img = [
+    "http://i.imgur.com/LjaiTjIb.jpg",
+    "http://i.imgur.com/kG0deA5b.jpg",
+    "http://i.imgur.com/oz5rd9vb.jpg",
+    "http://i.imgur.com/y7CWcFxb.jpg",
+    "http://i.imgur.com/OFMjRXLb.jpg",
+    "http://i.imgur.com/LIUbcucb.jpg",
+    "http://i.imgur.com/GmD8ulZb.jpg",
+    "http://i.imgur.com/WHDNPJUb.jpg",
+    "http://i.imgur.com/SBeA1JRb.jpg",
+    "http://i.imgur.com/2TIlzI3b.jpg",
+    "http://i.imgur.com/uopDy7Ob.jpg"
+]
 
 taylor = [
   'i (love|like) swift',
