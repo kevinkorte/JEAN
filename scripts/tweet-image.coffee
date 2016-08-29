@@ -25,6 +25,9 @@ module.exports = (robot) ->
   robot.respond /animate( me)? (.+)/i, (msg) ->
     imageMe msg, msg.match[2], true, (url) ->
       msg.send url
+      
+  robot.hear taylor_regex, (msg) ->
+    msg.send msg.random taylor_img
 
   # pro feature, not added to docs since you can't conditionally document commands
   if process.env.HUBOT_GOOGLE_IMAGES_HEAR?
@@ -143,3 +146,15 @@ doTweet = (msg, tweet) ->
       id = reply.id_str
       if (username && id)
         msg.send "https://www.twitter.com/#{username}/status/#{id}"
+
+taylor_img = require 'taylor.json'
+taylor = [
+  'i (love|like) swift',
+  'taylor swift',
+  '(writing|coding) swift',
+  'swift project',
+  '(to|only) swift',
+  'into swift',
+  'swift channel'
+]
+taylor_regex = new RegExp taylor.join('|'), 'ig'
