@@ -25,9 +25,6 @@ module.exports = (robot) ->
   robot.respond /animate( me)? (.+)/i, (msg) ->
     imageMe msg, msg.match[2], true, (url) ->
       msg.send url
-      
-  robot.hear taylor_regex, (msg) ->
-    msg.send msg.random taylor_img
 
   # pro feature, not added to docs since you can't conditionally document commands
   if process.env.HUBOT_GOOGLE_IMAGES_HEAR?
