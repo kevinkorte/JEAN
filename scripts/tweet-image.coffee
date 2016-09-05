@@ -15,12 +15,12 @@ getTwit = ->
 
 module.exports = (robot) ->
 
-  robot.respond /(kevin)( me)? (.+)/i, (msg) ->
+  robot.respond /(kevin) (me)? (.+)/i, (msg) ->
     imageMe msg, msg.match[3], (url) ->
       msg.send url
       
-  robot.respond /tweet\s*(.+)?/i, (msg) ->
-    doTweet(msg, msg.match[1])
+  robot.respond /(tweet me|tweet) (.+)/i, (msg) ->
+    doTweet(msg, msg.match[2])
 
   robot.respond /animate( me)? (.+)/i, (msg) ->
     imageMe msg, msg.match[2], true, (url) ->
